@@ -7,6 +7,7 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 
 import { useUserStore } from '@/stores/userStore';
+import { Spinner } from './Spinner';
 
 export const AuthProvider = ({
     children,
@@ -41,5 +42,5 @@ export const AuthProvider = ({
         <div>
             {children}
         </div>
-    ) : null;
+    ) : <Spinner />;
 };

@@ -6,6 +6,7 @@ type UserStore = {
     userData: User;
     addUser: (item: User) => void;
     removeUser: () => void;
+    changeUrl: (newUrl: string) => void;
 };
 
 export const useUserStore = create<UserStore>()((set) => ({
@@ -33,6 +34,14 @@ export const useUserStore = create<UserStore>()((set) => ({
                 avatar: '',
                 role: RoleTypes.USER,
                 passwordHash: null,
+            },
+        })),
+
+    changeUrl: (newUrl: string) =>
+        set((state: UserStore) => ({
+            userData: {
+                ...state.userData,
+                avatar: newUrl,
             },
         })),
 }));
