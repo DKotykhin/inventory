@@ -2,7 +2,9 @@ import React from 'react';
 
 const GroupsPage = () => {
     return (
-        <div>Groups Page</div>
+        <main>
+            <h1 className="">Groups Page</h1>
+        </main>
     );
 };
 

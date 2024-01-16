@@ -6,12 +6,14 @@ import Image from "next/image";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
+import Cookies from 'js-cookie';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Mode, Resolver, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { SignInTypes, signInValidationSchema } from '@/validation/userValidation';
+import { useUserStore } from '@/stores/userStore';
 import { EmailInput, PasswordInput } from '@/components/inputs/_index';
 
 interface ISignInFormValidation {
@@ -32,6 +34,7 @@ const SignInFormValidation: ISignInFormValidation = {
 export const SignInForm = () => {
 
     const [isPending, startTransition] = useTransition();
+    const { addUser } = useUserStore();
     const router = useRouter();
 
     const {
@@ -53,8 +56,12 @@ export const SignInForm = () => {
                 data: formData,
             })
                 .then((res) => {
-                    // console.log(res.data.message);
+                    // console.log(res.data.token);
                     reset();
+                    Cookies.set('token', res.data?.token, {
+                        expires: 2,
+                    });
+                    addUser(res.data.user);
                     router.push('/');
                 })
                 .catch((error) => {

@@ -4,7 +4,7 @@ import { db } from '@/lib/db';
 import { ApiError } from '@/handlers/apiError';
 
 import { VerifyEmailTemplate } from '@/components/emailTemplates';
-import { cryptoToken, findUserByEmail, jwtToken, mailSender, PasswordHash } from '@/utils/_index';
+import { checkAuth, cryptoToken, findUserByEmail, findUserById, jwtToken, mailSender, PasswordHash } from '@/utils/_index';
 import { SignInTypes, signInValidate, SignUpTypes, signUpValidate } from '@/validation/userValidation';
 
 class UserService {
@@ -131,7 +131,16 @@ class UserService {
             },
             token,
         };
-    };
+    }
+
+    async getUserByToken(token: string): Promise<any> {
+        const { id } = checkAuth(token);
+        const user = await findUserById(id);
+
+        const { userName, email, role, createdAt, avatar } = user;
+
+        return { id, userName, email, role, createdAt, avatar, passwordHash: null };
+    }
 }
 
 const userService = new UserService();

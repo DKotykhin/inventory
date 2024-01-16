@@ -25,8 +25,10 @@ export default function RootLayout({
         <html lang="en" suppressHydrationWarning={true}>
             <body className={inter.className}>
                 <Header />
-                <SideBar />
-                {children}
+                <div className='flex'>
+                    <SideBar />
+                    {children}
+                </div>
                 <ToastContainer
                     position="top-right"
                     autoClose={4000}

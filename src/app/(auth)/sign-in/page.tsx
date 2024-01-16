@@ -11,7 +11,7 @@ export const metadata: Metadata = signInPageMetaData;
 const SignInPage = () => {
     return (
         <AuthWrapper>
-            <AuthFormHeader title='Create an account' />
+            <AuthFormHeader title='Welcome back!' />
             <SignInForm />
         </AuthWrapper>
 

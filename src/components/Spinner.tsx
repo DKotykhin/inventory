@@ -8,8 +8,7 @@ export const Spinner: React.FC = () => {
                 src={"/spinner.svg"}
                 alt="spinner"
                 width={200}
-                height={200}
-                priority
+                height={200}                
             />
         </div>
     );

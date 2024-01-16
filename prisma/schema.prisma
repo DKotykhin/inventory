@@ -15,6 +15,11 @@ enum RoleTypes {
   VISITOR
 }
 
+enum CurrencyTypes {
+  USD
+  UAH
+}
+
 model User {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now()) @map("created_at")
@@ -46,4 +51,55 @@ model EmailConfirm {
 
   userId String @unique @map("user_id")
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Order {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+
+  title       String
+  description String?
+  date        DateTime
+
+  items Products[]
+}
+
+model Products {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+
+  title         String
+  serialNumber  String
+  isNew         Boolean
+  photo         String?
+  type          String?
+  specification String?
+  order         Int        @default(autoincrement())
+  date          DateTime
+  guarantee     Guarantee?
+  price         Price[]
+
+  orders  Order  @relation(fields: [orderId], references: [id])
+  orderId String @map("order_id")
+}
+
+model Guarantee {
+  id String @id @default(cuid())
+
+  start DateTime
+  end   DateTime
+
+  product   Products @relation(fields: [productId], references: [id])
+  productId String   @unique @map("product_id")
+}
+
+model Price {
+  id        String   @id @default(cuid())
+
+  value     Int
+  symbol    CurrencyTypes
+  isDefault Boolean       @default(value: false)
+
+  product   Products @relation(fields: [productId], references: [id])
+  productId String   @unique @map("product_id")
 }
