@@ -37,19 +37,36 @@ export const errorPageMetaData: Metadata = {
     title: 'Error page',
 };
 
-export const signInPageMetaData: Metadata = {
-    title: 'Sign in page',
-};
-
-export const signUpPageMetaData: Metadata = {
-    title: 'Sign up page',
-};
+// auth pages
 export const forgotPasswordPageMetaData: Metadata = {
     title: 'Forgot password page',
 };
 export const sendEmailMessagePageMetaData: Metadata = {
     title: 'Send email page',
 };
+export const setNewPasswordPageMetaData: Metadata = {
+    title: 'Set new password page',
+};
+export const signInPageMetaData: Metadata = {
+    title: 'Sign in page',
+};
+export const signUpPageMetaData: Metadata = {
+    title: 'Sign up page',
+};
 export const verifyEmailPageMetaData: Metadata = {
     title: 'Verify email page',
+};
+
+// protected user pages
+export const groupsPageMetaData: Metadata = {
+    title: 'Groups page',
+};
+export const productsPageMetaData: Metadata = {
+    title: 'Products page',
+};
+export const settingsPageMetaData: Metadata = {
+    title: 'Settings page',
+};
+export const usersPageMetaData: Metadata = {
+    title: 'Users page',
 };

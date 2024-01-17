@@ -5,6 +5,7 @@ import React, { useTransition } from 'react';
 import Image from "next/image";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { Button } from '@nextui-org/react';
 
 import Cookies from 'js-cookie';
 import axios from 'axios';
@@ -91,10 +92,12 @@ export const SignInForm = () => {
                     Forgot password?
                 </Link>
             </div>
-            <button
+            <Button
                 type='submit'
-                className={isPending ? 'btn-green opacity-70 mt-6' : 'btn-green mt-6'}
-                disabled={isPending}
+                color='primary'
+                variant='shadow'
+                className={isPending ? 'opacity-70 mt-6' : 'mt-6'}
+                isDisabled={isPending}
             >
                 <Image
                     src={'/icons/lock.svg'}
@@ -103,7 +106,7 @@ export const SignInForm = () => {
                     height={18}
                 />
                 <span>Sign in</span>
-            </button>
+            </Button>
             <p className='w-full text-center text-grey-800 text-[14px] mt-4'>
                 Don&apos;t have an account?&nbsp;
                 <Link href={'/sign-up'} className='text-green'>Sign up</Link> as a new user

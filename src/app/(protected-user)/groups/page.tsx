@@ -1,4 +1,9 @@
 import React from 'react';
+import { Metadata } from 'next';
+
+import { groupsPageMetaData } from '@/metadata/metadata';
+
+export const metadata: Metadata = groupsPageMetaData;
 
 const GroupsPage = () => {
     return (

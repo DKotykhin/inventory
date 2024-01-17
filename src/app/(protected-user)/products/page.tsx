@@ -1,16 +1,14 @@
 import React from 'react';
+import { Metadata } from 'next';
 
-import productService from '@/services/productService';
-import { Spinner } from '@/components/Spinner';
+import { Products } from './components/Products';
+import { productsPageMetaData } from '@/metadata/metadata';
+
+export const metadata: Metadata = productsPageMetaData;
 
 const ProductsPage = async () => {
 
-    const products = await productService.getProducts();
-    console.log('products: ', products);
-
-    return products ? (
-        <div>Products Page</div>
-    ) : <Spinner />;
+    return <Products />;
 };
 
 export default ProductsPage;

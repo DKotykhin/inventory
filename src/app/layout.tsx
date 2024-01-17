@@ -6,6 +6,7 @@ import { generalMetaData } from '@/metadata/metadata';
 
 import { Header } from '@/components/Header';
 import { SideBar } from '@/components/SideBar';
+import { UIProvider } from '@/components/UIProvider';
 
 import 'react-toastify/dist/ReactToastify.css';
 import "react-datepicker/dist/react-datepicker.css";
@@ -26,11 +27,13 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning={true}>
             <body className={inter.className}>
-                <Header />
-                <div className='flex'>
-                    <SideBar />
-                    {children}
-                </div>
+                <UIProvider>
+                    <Header />
+                    <div className='flex'>
+                        <SideBar />
+                        {children}
+                    </div>
+                </UIProvider>
                 <ToastContainer
                     position="top-right"
                     autoClose={4000}

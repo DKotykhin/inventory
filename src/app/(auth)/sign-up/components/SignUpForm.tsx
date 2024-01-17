@@ -5,6 +5,7 @@ import React, { useTransition } from 'react';
 import Image from "next/image";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { Button } from '@nextui-org/react';
 
 import { Mode, Resolver, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -88,10 +89,12 @@ export const SignUpForm = () => {
                 error={errors.password}
                 label='Create password'
             />
-            <button
+            <Button
                 type='submit'
-                className={isPending ? 'btn-green opacity-70 mt-6' : 'btn-green mt-6'}
-                disabled={isPending}
+                color='primary'
+                variant='shadow'
+                className={isPending ? 'opacity-70 mt-6' : 'mt-6'}
+                isDisabled={isPending}
             >
                 <Image
                     src={'/icons/user-pen.svg'}
@@ -100,7 +103,7 @@ export const SignUpForm = () => {
                     height={18}
                 />
                 Sign Up
-            </button>
+            </Button>
             <p className='w-full text-center text-grey-800 text-[14px] mt-4'>
                 Already have an account?&nbsp;
                 <Link href={'/sign-in'} className='text-green'>Sign in</Link> as a user

@@ -6,7 +6,7 @@ import Link from "next/link";
 export const Error: React.FC = () => {
 
     return (
-        <div className='w-full flex flex-col items-center gap-4 mt-12'>
+        <div className='w-full flex flex-col items-center gap-4 mt-32'>
             <Image
                 src={'/sorry.jpeg'}
                 alt="error"

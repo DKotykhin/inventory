@@ -3,6 +3,7 @@ import React from 'react';
 import { Control } from "react-hook-form";
 
 import { TextInput, AreaInput, DatePickerInput } from '@/components/inputs/_index';
+import { Button } from '@nextui-org/react';
 
 interface AddOrderProps {
     cancelClick: () => void;
@@ -40,8 +41,8 @@ export const AddOrder: React.FC<AddOrderProps> = ({ cancelClick, control, errors
                     />
                     <DatePickerInput control={control} name='date' placeholder='Дата' />
                     <div className='flex justify-end text-lg gap-6 mt-8'>
-                        <button type='button' className='btn-white' onClick={cancelClick}>Отмена</button>
-                        <button type='submit' className='btn-green'>Подтвердить</button>
+                        <Button type='button' variant='bordered' onClick={cancelClick}>Отмена</Button>
+                        <Button type='submit' variant='shadow' color='primary'>Подтвердить</Button>
                     </div>
                 </form>
             </div>

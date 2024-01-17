@@ -1,8 +1,12 @@
 import React from 'react';
 import { cookies } from 'next/headers';
+import type { Metadata } from 'next';
 
 import { checkAuth } from '@/utils/checkAuth';
 import { RoleTypes } from '@prisma/client';
+import { usersPageMetaData } from '@/metadata/metadata';
+
+export const metadata: Metadata = usersPageMetaData;
 
 const UsersPage = () => {
 

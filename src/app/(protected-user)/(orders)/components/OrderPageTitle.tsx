@@ -1,17 +1,20 @@
 "use client";
 
-import React, { useState, useTransition } from 'react';
+import React, { useState } from 'react';
 
+import { useSWRConfig } from 'swr';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-
 import { Mode, Resolver, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { Order } from '@prisma/client';
 import { CreateOrderTypes, createOrderValidationSchema } from '@/validation/orderValidation';
 import { AddOrder } from './AddOrder';
-import { useRouter } from 'next/navigation';
+
+interface OrderPageTitleProps {
+    totalCount: number;
+    currentPage: number;
+}
 
 interface CreateOrderFormValidationTypes {
     defaultValues: CreateOrderTypes;
@@ -29,11 +32,10 @@ const CreateOrderFormValidation: CreateOrderFormValidationTypes = {
     mode: 'onChange',
 };
 
-export const PageTitle: React.FC<{ orders: Order[] }> = ({ orders }) => {
+export const OrderPageTitle: React.FC<OrderPageTitleProps> = ({ totalCount, currentPage }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isPending, startTransition] = useTransition();
-    const router = useRouter();
+    const { mutate } = useSWRConfig();
 
     const {
         control,
@@ -46,23 +48,22 @@ export const PageTitle: React.FC<{ orders: Order[] }> = ({ orders }) => {
         // console.log('data: ', formData);
         setIsModalOpen(false);
         reset();
-        startTransition(async () => {
-            await axios({
-                method: 'POST',
-                url: '/api/order/create-order',
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                data: formData,
-            }
-            ).then((res) => {
-                toast.success(res.data.message);
-                router.refresh();
-            })
+        await axios({
+            method: 'POST',
+            url: '/api/order/create-order',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            data: formData,
+        }
+        ).then((res) => {
+            toast.success(res.data.message);
+            mutate(`/api/order/get-all-orders?limit=5&page=${currentPage}`);
+        })
             .catch((err) => {
                 toast.error(err.response.data.message);
             });
-        });
+
     };
 
     return (
@@ -74,7 +75,7 @@ export const PageTitle: React.FC<{ orders: Order[] }> = ({ orders }) => {
                 +
             </button>
             <h1>Приходы / </h1>
-            <p>{orders.length}</p>
+            <p>{totalCount}</p>
             {isModalOpen &&
                 <AddOrder
                     cancelClick={() => {

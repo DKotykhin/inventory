@@ -5,7 +5,9 @@ import React, { useTransition } from 'react';
 import Image from "next/image";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { Button } from '@nextui-org/react';
 
+import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Mode, Resolver, useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -37,6 +39,7 @@ const ForgotPasswordForm = () => {
     const {
         control,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm<{
         email: string;
@@ -45,15 +48,23 @@ const ForgotPasswordForm = () => {
     const onSubmit = async (formData: {
         email: string;
     }) => {
-        const { email } = formData;
         startTransition(async () => {
-            // try {
-            //     const res = await resetPassword({ email });
-            //     // console.log(res);
-            //     router.push(`/${lang}/send-email-message`);
-            // } catch (error: any) {
-            //     toast.error(error.message);
-            // }
+            await axios({
+                method: 'POST',
+                url: '/api/auth/reset-password',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                data: formData,
+            })
+                .then((res) => {
+                    // console.log(res.data.token);
+                    reset();
+                    router.push('/send-email-message');
+                })
+                .catch((error) => {
+                    toast.error(error.response.data.message);
+                });
         });
     };
 
@@ -66,10 +77,12 @@ const ForgotPasswordForm = () => {
                 error={errors.email}
                 label='Email'
             />
-            <button
+            <Button
                 type='submit'
-                className={isPending ? 'btn-green opacity-70 mt-6' : 'btn-green mt-6'}
-                disabled={isPending}
+                color='primary'
+                variant='shadow'
+                className={isPending ? 'opacity-70 mt-6' : 'mt-6'}
+                isDisabled={isPending}
             >
                 <Image
                     src={'/icons/email.svg'}
@@ -78,10 +91,10 @@ const ForgotPasswordForm = () => {
                     height={22}
                 />
                 <span>Send Reset Link</span>
-            </button>
+            </Button>
             <p className='w-full text-center text-grey-800 text-[14px] mt-4'>
                 Return to
-                <Link href={`/sign-in`} className='text-green'> Login page</Link>
+                <Link href={`/sign-in`} className='text-green'> Sign in </Link>page
             </p>
         </form>
     );

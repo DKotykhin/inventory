@@ -6,9 +6,32 @@ import { Product, RoleTypes } from '@prisma/client';
 import { checkAuth } from '@/utils/_index';
 
 class ProductService {
-    async getProducts(): Promise<Product[]> {
+    async getProducts({
+        limit,
+        page,
+    }: {
+        limit: string | null;
+        page: string | null;
+    }): Promise<{ products: Product[]; totalCount: number; totalPages: number }> {
+        const validPage = page ? +page : 1;
+        const validLimit = limit ? +limit : 5;
+
         try {
-            return await db.product.findMany();
+            const products = await db.product.findMany({
+                include: {
+                    guarantee: true,
+                    price: true,
+                },
+                orderBy: {
+                    date: 'desc',
+                },
+                skip: (validPage - 1) * validLimit,
+                take: validLimit,
+            });
+            const totalCount = await db.product.count();
+            const totalPages = Math.ceil(totalCount / validLimit);
+
+            return { products, totalCount, totalPages };
         } catch (error) {
             throw ApiError.internalError("Can't get products");
         }

@@ -3,9 +3,24 @@ import { db } from '@/lib/db';
 
 import { ApiError } from '@/handlers/apiError';
 
-import { VerifyEmailTemplate } from '@/components/emailTemplates';
-import { checkAuth, cryptoToken, findUserByEmail, findUserById, jwtToken, mailSender, PasswordHash } from '@/utils/_index';
-import { SignInTypes, signInValidate, SignUpTypes, signUpValidate } from '@/validation/userValidation';
+import { ResetPasswordTemplate, VerifyEmailTemplate } from '@/components/EmailTemplates';
+import {
+    checkAuth,
+    cryptoToken,
+    findUserByEmail,
+    findUserById,
+    jwtToken,
+    mailSender,
+    PasswordHash,
+} from '@/utils/_index';
+import {
+    emailValidate,
+    passwordValidate,
+    SignInTypes,
+    signInValidate,
+    SignUpTypes,
+    signUpValidate,
+} from '@/validation/userValidation';
 
 class UserService {
     async signUp(signUpData: SignUpTypes) {
@@ -87,9 +102,9 @@ class UserService {
 
     async signIn(data: SignInTypes): Promise<{ user: User; token: string }> {
         const { email, password } = await signInValidate(data);
-    
+
         const user = await findUserByEmail(email);
-    
+
         if (!user?.emailConfirm?.verified) {
             const token = cryptoToken();
             await mailSender({
@@ -110,15 +125,15 @@ class UserService {
             });
             throw ApiError.badRequest('Email not verified. Check your email');
         }
-    
+
         if (user?.passwordHash === null) {
             throw ApiError.badRequest('Incorrect login or password');
         }
         await PasswordHash.compare(password, user.passwordHash, 'Incorrect login or password');
-    
+
         const token = jwtToken(user.id, user.role);
         const { userName, id, role, createdAt, avatar } = user;
-    
+
         return {
             user: {
                 id,
@@ -140,6 +155,102 @@ class UserService {
         const { userName, email, role, createdAt, avatar } = user;
 
         return { id, userName, email, role, createdAt, avatar, passwordHash: null };
+    }
+
+    async resetPassword({ email }: { email: string }): Promise<{ status: Boolean }> {
+        await emailValidate({ email });
+        const user = await findUserByEmail(email);
+        if (!user?.id) {
+            throw ApiError.notFound('User not found');
+        }
+
+        if (!user?.emailConfirm?.verified) {
+            throw ApiError.badRequest('Email not verified. Check your email');
+        }
+
+        const token = cryptoToken();
+        await mailSender({
+            to: email,
+            subject: 'Reset Password',
+            react: ResetPasswordTemplate({ token }),
+        });
+
+        try {
+            await db.resetPassword.upsert({
+                where: { userId: user.id },
+                create: {
+                    userId: user.id,
+                    token,
+                    expiredAt: new Date(Date.now() + 1000 * 60 * 60),
+                },
+                update: {
+                    token,
+                    expiredAt: new Date(Date.now() + 1000 * 60 * 60),
+                },
+            });
+        } catch (error) {
+            throw ApiError.badRequest("Can't reset password");
+        }
+
+        return { status: true };
+    }
+
+    async setNewPassword({
+        token,
+        password,
+    }: {
+        token: string;
+        password: string;
+    }): Promise<{ status: Boolean }> {
+        if (!token || !password) {
+            throw ApiError.badRequest('Invalid data');
+        }
+        await passwordValidate({ password });
+
+        const pass = await db.resetPassword.findFirst({
+            where: { token, expiredAt: { gt: new Date() } },
+            include: {
+                user: {
+                    select: {
+                        id: true,
+                        emailConfirm: {
+                            select: {
+                                verified: true,
+                            },
+                        },
+                    },
+                },
+            },
+        });
+        if (!pass?.id) {
+            throw ApiError.badRequest('Invalid token');
+        }
+        if (!pass?.user?.emailConfirm?.verified) {
+            throw ApiError.badRequest('Email not verified');
+        }
+        const passwordHash = await PasswordHash.create(password);
+        try {
+            await db.$transaction([
+                db.resetPassword.update({
+                    where: { id: pass.id },
+                    data: {
+                        token: null,
+                        expiredAt: null,
+                        changedAt: new Date(),
+                    },
+                }),
+                db.user.update({
+                    where: { id: pass.user.id },
+                    data: {
+                        passwordHash,
+                    },
+                }),
+            ]);
+        } catch (error) {
+            throw ApiError.badRequest("Password can't be changed");
+        }
+
+        return { status: true };
     }
 }
 
