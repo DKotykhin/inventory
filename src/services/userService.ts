@@ -3,7 +3,7 @@ import { db } from '@/lib/db';
 
 import { ApiError } from '@/handlers/apiError';
 
-import { ResetPasswordTemplate, VerifyEmailTemplate } from '@/components/EmailTemplates';
+import { ResetPasswordTemplate, VerifyEmailTemplate } from '@/components/MailTemplates';
 import {
     checkAuth,
     cryptoToken,
