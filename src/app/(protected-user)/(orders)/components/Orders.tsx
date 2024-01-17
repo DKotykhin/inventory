@@ -19,19 +19,21 @@ export const Orders = () => {
     );
 
     return data ? (
-        <main className='px-16 py-10'>
-            <OrderPageTitle totalCount={data.totalCount} currentPage={currentPage} />
-            <OrderList orders={data.orders} currentPage={currentPage} />
-            <div className=' fixed bottom-8 left-1/2'>
+        <div className='h-[calc(100vh-64px)] flex flex-col px-16 py-10'>
+            <div className='grow'>
+                <OrderPageTitle totalCount={data.totalCount} currentPage={currentPage} />
+                <OrderList orders={data.orders} currentPage={currentPage} />
+            </div>
+            <div className='flex justify-center mt-10'>
                 <Pagination
                     total={data.totalPages}
                     initialPage={1}
                     page={currentPage}
                     onChange={setCurrentPage}
-                    showControls
+                    showControls={Boolean(data.totalPages > 1)}
                     showShadow
                 />
             </div>
-        </main>
+        </div>
     ) : <Spinner />;
 };

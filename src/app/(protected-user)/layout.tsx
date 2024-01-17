@@ -9,10 +9,10 @@ export default function UserLayout({
 }) {
 
     return (
-        <div className='w-full mt-16'>
+        <main className='w-full mt-16'>
             <AuthProvider>
                 {children}
             </AuthProvider>
-        </div>
+        </main>
     );
 }

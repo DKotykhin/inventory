@@ -1,15 +1,13 @@
 import { handleError } from '@/handlers/handleError';
-import orderService from '@/services/orderService';
+import productService from '@/services/productService';
 
-import { revalidatePath } from 'next/cache';
 import { headers } from 'next/headers';
 
 export async function DELETE(req: Request) {
     try {
         const id = await req.json();
         const token = headers().get('authorization') || '';
-        const res = await orderService.deleteOrder(id, token);
-        if (res) revalidatePath('/');
+        await productService.deleteProduct(id, token);
 
         return Response.json({
             message: `Order successfully deleted.`,

@@ -7,9 +7,9 @@ export const metadata: Metadata = groupsPageMetaData;
 
 const GroupsPage = () => {
     return (
-        <main>
-            <h1 className="">Groups Page</h1>
-        </main>
+        <div className='flex justify-center mt-10'>
+            <h1>Groups Page</h1>
+        </div>
     );
 };
 

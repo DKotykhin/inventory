@@ -12,7 +12,6 @@ import { useSWRConfig } from 'swr';
 
 import { Order, Product } from '@prisma/client';
 import { WarningModal } from '@/components/WarningModal';
-import { cn } from '@/utils/cn';
 
 interface OrderItemProps {
     order: Order & {
@@ -55,7 +54,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order, currentPage }) => {
         console.log('open product: ', id);
     };
 
-    const deleteProductClick = async (id: string) => {
+    const deleteOrderClick = async (id: string) => {
         // console.log('delete product: ', id);
         // setIsModalOpen(false);
         startTransition(async () => {
@@ -117,7 +116,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order, currentPage }) => {
                     title={'Удалить приход?'}
                     description={'Приход будет удален безвозвратно'}
                     cancelClick={() => setIsModalOpen(false)}
-                    confirmClick={() => deleteProductClick(order.id)}
+                    confirmClick={() => deleteOrderClick(order.id)}
                     isPending={isPending}
                 />
             }
