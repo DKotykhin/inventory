@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Order } from '@prisma/client';
+import { Order, Product } from '@prisma/client';
 import { OrderItem } from './OrderItem';
 
 interface OrderListProps {
-    orders: Order[]
+    orders: Order[];
 }
 
 export const OrderList: React.FC<OrderListProps> = ({ orders }) => {

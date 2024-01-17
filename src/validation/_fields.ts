@@ -15,3 +15,13 @@ export const userName = z
     .trim()
     .min(2, { message: 'Minimum 2 characters to fill' })
     .max(50, { message: 'Maximum 50 characters to fill' });
+
+export const textFieldRequired = z
+    .string()
+    .trim()
+    .min(2, { message: 'Minimum 2 characters to fill' })
+    .max(150, { message: 'Maximum 150 characters to fill' });
+
+export const textField = z.string().trim().max(250, { message: 'Maximum 250 characters to fill' });
+
+export const dateField = z.date();

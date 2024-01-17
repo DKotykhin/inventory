@@ -4,10 +4,12 @@ import { ToastContainer, Flip } from 'react-toastify';
 
 import { generalMetaData } from '@/metadata/metadata';
 
-import 'react-toastify/dist/ReactToastify.css';
-import './globals.css';
 import { Header } from '@/components/Header';
 import { SideBar } from '@/components/SideBar';
+
+import 'react-toastify/dist/ReactToastify.css';
+import "react-datepicker/dist/react-datepicker.css";
+import './globals.css';
 
 const inter = Inter({
     weight: ['300', '400', '500', '700', '900'],
