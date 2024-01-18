@@ -69,8 +69,8 @@ model Product {
   createdAt DateTime @default(now()) @map("created_at")
 
   title         String
-  serialNumber  String
-  isNew         Boolean
+  serialNumber  String     @map("serial_number")
+  isNew         Boolean    @default(value: true) @map("is_new")
   photo         String?
   type          String?
   specification String?
@@ -84,22 +84,24 @@ model Product {
 }
 
 model Guarantee {
-  id String @id @default(cuid())
+  id Int @default(autoincrement())
 
   start DateTime
   end   DateTime
 
   product   Product @relation(fields: [productId], references: [id])
-  productId String   @unique @map("product_id")
+  productId String  @unique @map("product_id")
 }
 
 model Price {
-  id        String   @id @default(cuid())
+  id Int @default(autoincrement())
 
   value     Int
   symbol    CurrencyTypes
-  isDefault Boolean       @default(value: false)
+  isDefault Boolean       @default(value: false) @map("is_default")
 
   product   Product @relation(fields: [productId], references: [id])
-  productId String   @unique @map("product_id")
+  productId String  @map("product_id")
+
+  @@id([id, symbol])
 }

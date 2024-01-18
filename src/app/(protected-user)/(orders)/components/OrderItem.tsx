@@ -10,13 +10,11 @@ import { ru } from 'date-fns/locale';
 import Cookies from 'js-cookie';
 import { useSWRConfig } from 'swr';
 
-import { Order, Product } from '@prisma/client';
 import { WarningModal } from '@/components/WarningModal';
+import { OrderFullProps } from './OrderList';
 
 interface OrderItemProps {
-    order: Order & {
-        items: Product[];
-    };
+    order: OrderFullProps;
     currentPage: number;
 }
 

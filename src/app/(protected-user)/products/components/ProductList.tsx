@@ -1,20 +1,34 @@
 import React from 'react';
 
-import { Product } from '@prisma/client';
+import { CurrencyTypes, Product } from '@prisma/client';
 import { ProductItem } from './ProductItem';
 
+export interface ProductFullProps extends Product {
+    orders: {
+        title: string,
+        date: Date,
+    },
+    price: {
+        value: number,
+        symbol: CurrencyTypes,
+    }[],
+    guarantee: {
+        start: Date,
+        end: Date,
+    },
+}
 interface ProductListProps {
-    products: Product[];
+    products: ProductFullProps[];
     currentPage: number;
 }
 
 export const ProductList: React.FC<ProductListProps> = ({ products, currentPage }) => {
 
-    console.log('products: ', products);
+    // console.log('products: ', products);
 
     return products?.length ? (
         <div className='flex flex-col items-center gap-2 mt-8'>
-            {products?.map((product: Product) => (
+            {products?.map((product: ProductFullProps) => (
                 <div key={product.id} className='w-full'>
                     <ProductItem product={product} currentPage={currentPage} />
                 </div>

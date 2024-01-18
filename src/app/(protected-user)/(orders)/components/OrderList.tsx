@@ -1,15 +1,23 @@
 import React from 'react';
 
-import { Order } from '@prisma/client';
+import { Order, Product } from '@prisma/client';
 import { OrderItem } from './OrderItem';
 
-export const OrderList: React.FC<{ orders: Order[], currentPage: number }> = ({ orders, currentPage }) => {
+export interface OrderFullProps extends Order {
+    items: Product[];
+}
+interface OrderListProps {
+    orders: OrderFullProps[];
+    currentPage: number;
+}
+
+export const OrderList: React.FC<OrderListProps> = ({ orders, currentPage }) => {
 
     return orders?.length ? (
         <div className='flex flex-col items-center gap-2 mt-8'>
-            {orders?.map((order: Order) => (
+            {orders?.map((order: OrderFullProps) => (
                 <div key={order.id} className='w-full'>
-                    <OrderItem order={{ ...order, items: [] }} currentPage={currentPage} />
+                    <OrderItem order={order} currentPage={currentPage} />
                 </div>
             ))}
         </div>

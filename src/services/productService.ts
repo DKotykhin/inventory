@@ -21,6 +21,7 @@ class ProductService {
                 include: {
                     guarantee: true,
                     price: true,
+                    orders: true,
                 },
                 orderBy: {
                     date: 'desc',
