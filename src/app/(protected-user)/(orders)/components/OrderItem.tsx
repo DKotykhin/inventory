@@ -12,6 +12,7 @@ import { useSWRConfig } from 'swr';
 
 import { WarningModal } from '@/components/WarningModal';
 import { OrderFullProps } from './OrderList';
+import { CurrencyTypes } from '@prisma/client';
 
 interface OrderItemProps {
     order: OrderFullProps;
@@ -54,7 +55,6 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order, currentPage }) => {
 
     const deleteOrderClick = async (id: string) => {
         // console.log('delete product: ', id);
-        // setIsModalOpen(false);
         startTransition(async () => {
 
             // await mutate(`/api/order/get-all-orders?limit=5&page=${currentPage}`,
@@ -79,15 +79,15 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order, currentPage }) => {
         });
     };
 
-    // const summarize = () => {
-    //     const sum = order.items.map(item => item.reduce((acc, item) => acc + item.price, 0));
-    // };
+    const sumUSD = order.items.map(item => item.price).flat().filter(item => item.symbol === CurrencyTypes.USD).reduce((acc, item) => acc + item.value, 0);
+    const sumUAH = order.items.map(item => item.price).flat().filter(item => item.symbol === CurrencyTypes.UAH).reduce((acc, item) => acc + item.value, 0);
 
     return (
         <div className=
             'flex justify-between items-center border border-grey-200 py-4 px-6 gap-2 bg-white text-grey-500 rounded'
         >
-            <p className='w-[500px]'>{order.title}</p>
+            <p className='w-[250px]'>{order.title}</p>
+            <p className='w-[250px]'>{order.description}</p>
             <Image
                 src={'/icons/list.svg'}
                 alt={'list'}
@@ -101,6 +101,10 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order, currentPage }) => {
                 <p>{displayProductName(order.items.length.toString())}</p>
             </div>
             <p>{format(order.date, 'dd / MMM / yyyy', { locale: ru })}</p>
+            <div className='flex flex-col text-right w-[90px]'>
+                <p>{sumUAH ? sumUAH.toFixed(2) + ' ₴' : '-'}</p>
+                <p>{sumUSD ? sumUSD.toFixed(2) + ' $' : '-'}</p>
+            </div>
             <Image
                 src={'/icons/delete.svg'}
                 alt={'delete'}

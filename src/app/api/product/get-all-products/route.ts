@@ -6,16 +6,19 @@ export async function GET(req: Request) {
         const { searchParams } = new URL(req.url);
         const limit = searchParams.get('limit');
         const page = searchParams.get('page');
+        const type = searchParams.get('type');
 
-        const { products, totalCount, totalPages } = await productService.getProducts({
+        const { products, totalCount, totalPages, productTypeList } = await productService.getProducts({
             limit,
             page,
+            type,
         });
 
         return Response.json({
             products,
             totalCount,
             totalPages,
+            productTypeList,
         });
     } catch (error) {
         return handleError(error);

@@ -1,14 +1,17 @@
 import React from 'react';
 
-import { Order, Product } from '@prisma/client';
+import { Order, Price, Product } from '@prisma/client';
 import { OrderItem } from './OrderItem';
 
 export interface OrderFullProps extends Order {
-    items: Product[];
+    items: ExtendedProduct[];
 }
 interface OrderListProps {
     orders: OrderFullProps[];
     currentPage: number;
+}
+interface ExtendedProduct extends Product {
+    price: Price[];
 }
 
 export const OrderList: React.FC<OrderListProps> = ({ orders, currentPage }) => {

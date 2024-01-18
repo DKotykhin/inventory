@@ -45,7 +45,7 @@ export const SideBar = () => {
     };
 
     return (
-        <div className='w-[200px] h-screen bg-white flex flex-col justify-between items-center shadow-lg pt-32 pb-8'>
+        <div className='w-[200px] bg-white flex flex-col justify-between items-center shadow-lg pt-32 pb-8'>
             <div className='flex flex-col items-center gap-16'>
                 <Avatar />
                 <nav>
@@ -62,7 +62,7 @@ export const SideBar = () => {
                     </ul>
                 </nav>
             </div>
-            <button className='flex items-center gap-2 p-1' onClick={logoutClick}>
+            <button className='flex items-center gap-2 p-1 mt-4' onClick={logoutClick}>
                 <Image
                     src={'/icons/logout.svg'}
                     alt={'logout'}

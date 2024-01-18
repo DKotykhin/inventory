@@ -9,10 +9,17 @@ class ProductService {
     async getProducts({
         limit,
         page,
+        type,
     }: {
         limit: string | null;
         page: string | null;
-    }): Promise<{ products: Product[]; totalCount: number; totalPages: number }> {
+        type: string | null;
+    }): Promise<{
+        products: Product[];
+        totalCount: number;
+        totalPages: number;
+        productTypeList: { type: string | null }[];
+    }> {
         const validPage = page ? +page : 1;
         const validLimit = limit ? +limit : 5;
 
@@ -28,11 +35,24 @@ class ProductService {
                 },
                 skip: (validPage - 1) * validLimit,
                 take: validLimit,
+                where: {
+                    type: type ? type === 'All' ? undefined: type : undefined,
+                },
             });
-            const totalCount = await db.product.count();
+            const totalCount = await db.product.count({
+                where: {
+                    type: type ? type === 'All' ? undefined: type : undefined,
+                },
+            });
             const totalPages = Math.ceil(totalCount / validLimit);
+            const productTypeList = await db.product.findMany({
+                select: {
+                    type: true,
+                },
+                distinct: ['type'],
+            });
 
-            return { products, totalCount, totalPages };
+            return { products, totalCount, totalPages, productTypeList };
         } catch (error) {
             throw ApiError.internalError("Can't get products");
         }

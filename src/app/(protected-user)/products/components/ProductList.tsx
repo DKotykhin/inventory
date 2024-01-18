@@ -1,21 +1,12 @@
 import React from 'react';
 
-import { CurrencyTypes, Product } from '@prisma/client';
+import { Guarantee, Order, Price, Product } from '@prisma/client';
 import { ProductItem } from './ProductItem';
 
 export interface ProductFullProps extends Product {
-    orders: {
-        title: string,
-        date: Date,
-    },
-    price: {
-        value: number,
-        symbol: CurrencyTypes,
-    }[],
-    guarantee: {
-        start: Date,
-        end: Date,
-    },
+    orders: Order,
+    price: Price[],
+    guarantee: Guarantee,
 }
 interface ProductListProps {
     products: ProductFullProps[];

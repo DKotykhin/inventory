@@ -13,16 +13,26 @@ import { ProductList } from './ProductList';
 export const Products = () => {
 
     const [currentPage, setCurrentPage] = useState(1);
+    const [productType, setProductType] = useState('All');
+
     const { data } = useSWR(
-        `/api/product/get-all-products?limit=5&page=${currentPage}`,
+        `/api/product/get-all-products?limit=5&page=${currentPage}&type=${productType}`,
         fetcher
     );
 
     return data ? (
         <div className='h-[calc(100vh-64px)] flex flex-col px-16 py-10'>
             <div className='grow'>
-                <ProductPageTitle totalCount={data.totalCount} currentPage={currentPage} />
-                <ProductList products={data.products} currentPage={currentPage} />
+                <ProductPageTitle
+                    totalCount={data.totalCount}
+                    productType={productType}
+                    productTypeList={data.productTypeList}
+                    productTypeOnChange={(value: string) => setProductType(value)}
+                />
+                <ProductList
+                    products={data.products}
+                    currentPage={currentPage}
+                />
             </div>
             <div className='flex justify-center mt-10'>
                 <Pagination
