@@ -6,12 +6,12 @@ import { OrderItem } from './OrderItem';
 export interface OrderFullProps extends Order {
     items: ExtendedProduct[];
 }
+interface ExtendedProduct extends Product {
+    price: Price[];
+}
 interface OrderListProps {
     orders: OrderFullProps[];
     currentPage: number;
-}
-interface ExtendedProduct extends Product {
-    price: Price[];
 }
 
 export const OrderList: React.FC<OrderListProps> = ({ orders, currentPage }) => {

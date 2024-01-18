@@ -32,6 +32,7 @@ export const Products = () => {
                 <ProductList
                     products={data.products}
                     currentPage={currentPage}
+                    productType={productType}
                 />
             </div>
             <div className='flex justify-center mt-10'>

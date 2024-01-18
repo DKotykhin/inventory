@@ -2,7 +2,7 @@ import { db } from '@/lib/db';
 
 import { ApiError } from '@/handlers/apiError';
 
-import { Product, RoleTypes } from '@prisma/client';
+import { Guarantee, Price, Product, RoleTypes } from '@prisma/client';
 import { checkAuth } from '@/utils/_index';
 
 class ProductService {
@@ -36,12 +36,12 @@ class ProductService {
                 skip: (validPage - 1) * validLimit,
                 take: validLimit,
                 where: {
-                    type: type ? type === 'All' ? undefined: type : undefined,
+                    type: type ? (type === 'All' ? undefined : type) : undefined,
                 },
             });
             const totalCount = await db.product.count({
                 where: {
-                    type: type ? type === 'All' ? undefined: type : undefined,
+                    type: type ? (type === 'All' ? undefined : type) : undefined,
                 },
             });
             const totalPages = Math.ceil(totalCount / validLimit);
@@ -66,11 +66,43 @@ class ProductService {
         }
     }
 
-    async createProduct(data: Omit<Product, 'id' | 'createdAt'>): Promise<Product> {
+    async createProduct({
+        productData,
+        priceData,
+        guaranteeData,
+        orderId,
+    }: {
+        productData: Omit<Product, 'id' | 'createdAt'>;
+        priceData: Price[];
+        guaranteeData: Omit<Guarantee, 'id'>;
+        orderId: string;
+    }): Promise<Product> {
         try {
-            return await db.product.create({ data });
+            const newProduct = await db.product.create({
+                data: {
+                    ...productData,
+                    orderId,
+                },
+            });
+            if (!newProduct) {
+                throw ApiError.internalError("Can't create product");
+            }
+            await db.$transaction([
+                db.price.createMany({
+                    data: priceData.map((item) => ({ ...item, productId: newProduct.id })),
+                }),
+                db.guarantee.create({
+                    data: {
+                        ...guaranteeData,
+                        productId: newProduct.id,
+                    },
+                }),
+            ]);
+
+            return newProduct;
         } catch (error) {
-            throw ApiError.internalError("Can't create product");
+            console.log('error: ', error);
+            throw ApiError.internalError("Can't create full product");
         }
     }
 
@@ -84,9 +116,9 @@ class ProductService {
 
     async deleteProduct(id: string, token: string): Promise<Product> {
         const { role } = checkAuth(token);
-        if (role !== RoleTypes.ADMIN || role !== RoleTypes.SUBADMIN) {
-            throw ApiError.unauthorized("You don't have permission to delete order");
-        }
+        // if (role !== RoleTypes.ADMIN || role !== RoleTypes.SUBADMIN) {
+        //     throw ApiError.unauthorized("You don't have permission to delete order");
+        // }
         try {
             return await db.product.delete({ where: { id } });
         } catch (error) {

@@ -49,8 +49,8 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order, currentPage }) => {
     const cookies = Cookies.get('token');
     const { mutate } = useSWRConfig();
 
-    const openProductClick = (id: string) => {
-        console.log('open product: ', id);
+    const openProductClick = (order: OrderFullProps) => {
+        console.log('open product: ', order);
     };
 
     const deleteOrderClick = async (id: string) => {
@@ -94,7 +94,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order, currentPage }) => {
                 width={36}
                 height={36}
                 className='cursor-pointer border border-grey-200 rounded-full p-1 hover:border-grey-400'
-                onClick={() => openProductClick(order.id)}
+                onClick={() => openProductClick(order)}
             />
             <div className='w-[90px]'>
                 <p>{order.items.length}</p>

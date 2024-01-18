@@ -11,9 +11,10 @@ export interface ProductFullProps extends Product {
 interface ProductListProps {
     products: ProductFullProps[];
     currentPage: number;
+    productType: string;
 }
 
-export const ProductList: React.FC<ProductListProps> = ({ products, currentPage }) => {
+export const ProductList: React.FC<ProductListProps> = ({ products, currentPage, productType }) => {
 
     // console.log('products: ', products);
 
@@ -21,7 +22,7 @@ export const ProductList: React.FC<ProductListProps> = ({ products, currentPage 
         <div className='flex flex-col items-center gap-2 mt-8'>
             {products?.map((product: ProductFullProps) => (
                 <div key={product.id} className='w-full'>
-                    <ProductItem product={product} currentPage={currentPage} />
+                    <ProductItem product={product} currentPage={currentPage} productType={productType} />
                 </div>
             ))}
         </div>

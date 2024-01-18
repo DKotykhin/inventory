@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Inventory Test Task
 
-## Getting Started
+![Logo](https://inventory-lyart-six.vercel.app/logo.png)
 
-First, run the development server:
+## Technologies
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+-   React, NextJS 14, NextUI, Prisma, SQL, Typescript, Tailwind, React Hook Form, Axios, Bcrypt, Cloudinary, SWR, Resend, zod, jsonwebtoken, react toastify, date-fns, Zustand 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
+- Next 14 for frontend and backend
+- Postgres SQL DB placed on remote service [NEON](https://console.neon.tech)
+- Full authorization with email verification and forgot password
+- avatar upload service
+- create, read and delete for Orders
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+To run this project, you will need to add the following environment variables to your .env file. See also in .env.example in root directory
 
-## Learn More
+##### DB
+DATABASE_URL=
+DIRECT_URL=
 
-To learn more about Next.js, take a look at the following resources:
+##### Cloudinary variables
+CLOUDINARY_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+##### email service
+RESEND_API_KEY=
+RESEND_EMAIL_ADDRESS=
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+##### others
+JWT_TOKEN_SECRET_KEY=
+FRONT_URL=
+IMAGES_HOSTNAME=
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+[Deploy Link](https://inventory-lyart-six.vercel.app)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Author
+
+Dmytro Kotykhin
+-   [Github](https://github.com/DKotykhin)
+-   [Web](https://dmytro-kotykhin.space)
+-   [LinkedIn](https://www.linkedin.com/in/dmytro-kotykhin-4683151b)

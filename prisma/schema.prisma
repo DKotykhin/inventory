@@ -84,7 +84,7 @@ model Product {
 }
 
 model Guarantee {
-  id Int @default(autoincrement())
+  id Int @id @default(autoincrement())
 
   start DateTime
   end   DateTime
@@ -94,8 +94,6 @@ model Guarantee {
 }
 
 model Price {
-  id Int @default(autoincrement())
-
   value     Int
   symbol    CurrencyTypes
   isDefault Boolean       @default(value: false) @map("is_default")
