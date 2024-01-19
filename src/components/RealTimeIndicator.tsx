@@ -8,7 +8,7 @@ import { ru } from 'date-fns/locale';
 
 export const RealTimeIndicator = () => {
 
-    const [currentTime, setCurrentTime] = useState<Date | null>(null);
+    const [currentTime, setCurrentTime] = useState(new Date());
 
     useEffect(() => {
         setCurrentTime(new Date());

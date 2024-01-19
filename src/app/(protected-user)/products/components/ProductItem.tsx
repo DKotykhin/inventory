@@ -42,7 +42,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ product, currentPage, 
                 data: id,
             }
             ).then((res) => {
-                mutate(`/api/product/get-all-products?limit=5&page=${currentPage}&type=${productType}`);
+                mutate(`/api/product/get-all-products?limit=4&page=${currentPage}&type=${productType}`);
                 toast.success(res.data.message);
                 setIsModalOpen(false);
             }).catch((err) => {
@@ -70,7 +70,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ product, currentPage, 
                 <span className='text-grey-800'>{product?.title}</span>
                 <span className='text-xs'>SN {product?.serialNumber}</span>
             </div>
-            <p className='w-[48px]'>{product?.isNew ? 'Новый' : 'Б/У'}</p>
+            <p className={cn('w-[48px]', product.isNew ? 'text-green' : '')}>{product?.isNew ? 'Новый' : 'Б/У'}</p>
             <div className='flex flex-col-reverse w-[72px]'>
                 {product?.price?.map((item, index) => (
                     <span key={index} className={item.symbol === CurrencyTypes.USD ? 'text-xs' : 'text-grey-800'}>
@@ -81,17 +81,17 @@ export const ProductItem: React.FC<ProductItemProps> = ({ product, currentPage, 
             <div className='flex flex-col w-[190px]'>
                 <p className='text-grey-800'>Guarantee</p>
                 <div>
-                    <span>{format(product?.guarantee?.start || new Date(), 'dd MMM yyyy', { locale: ru })}</span>
+                    <span>{product?.guarantee?.start ? format(product.guarantee.start, 'dd MMM yyyy', { locale: ru }) : '-'}</span>
                     <span className='text-xs'> - </span>
-                    <span>{format(product?.guarantee?.end || new Date(), 'dd MMM yyyy', { locale: ru })}</span>
+                    <span>{product?.guarantee?.end ? format(product.guarantee.end, 'dd MMM yyyy', { locale: ru }) : '-'}</span>
                 </div>
             </div>
             <p className='w-[130px]'>{product?.specification}</p>
             <p className='w-[24px]'>{product?.order}</p>
-            <p>{format(product?.date, 'dd / MMM / yyyy', { locale: ru })}</p>
+            <p>{product?.date ? format(product.date, 'dd / MMM / yyyy', { locale: ru }) : '-'}</p>
             <div className='flex flex-col w-[180px]'>
                 <span className='text-grey-800'>{product?.orders?.title}</span>
-                <span className='text-xs'>{format(product?.orders?.date, 'dd / MMM / yyyy', { locale: ru })}</span>
+                <span className='text-xs'>{product?.orders?.date ? format(product.orders.date, 'dd / MMM / yyyy', { locale: ru }) : '-'}</span>
             </div>
             <Image
                 src={'/icons/delete.svg'}

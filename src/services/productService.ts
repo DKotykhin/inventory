@@ -21,7 +21,7 @@ class ProductService {
         productTypeList: { type: string | null }[];
     }> {
         const validPage = page ? +page : 1;
-        const validLimit = limit ? +limit : 5;
+        const validLimit = limit ? +limit : 4;
 
         try {
             const products = await db.product.findMany({

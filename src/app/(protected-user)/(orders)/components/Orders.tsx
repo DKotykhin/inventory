@@ -14,12 +14,12 @@ export const Orders = () => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const { data } = useSWR(
-        `/api/order/get-all-orders?limit=5&page=${currentPage}`,
+        `/api/order/get-all-orders?limit=4&page=${currentPage}`,
         fetcher
     );
 
     return data ? (
-        <div className='h-[calc(100vh-64px)] flex flex-col justify-between px-16 py-10'>
+        <div className='h-[calc(100vh-64px)] flex flex-col justify-between px-16 py-10 overflow-y-scroll'>
             <div className='grow'>
                 <OrderPageTitle totalCount={data.totalCount} currentPage={currentPage} />
                 <OrderList orders={data.orders} currentPage={currentPage} />

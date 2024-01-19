@@ -16,7 +16,7 @@ export const Products = () => {
     const [productType, setProductType] = useState('All');
 
     const { data } = useSWR(
-        `/api/product/get-all-products?limit=5&page=${currentPage}&type=${productType}`,
+        `/api/product/get-all-products?limit=4&page=${currentPage}&type=${productType}`,
         fetcher
     );
 

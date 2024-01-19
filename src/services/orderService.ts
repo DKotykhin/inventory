@@ -14,7 +14,7 @@ class OrderService {
         page: string | null;
     }): Promise<{ orders: Order[], totalCount: number, totalPages: number }> {
         const validPage = page ? +page : 1;
-        const validLimit = limit ? +limit : 5;
+        const validLimit = limit ? +limit : 4;
 
         try {
             const orders = await db.order.findMany({

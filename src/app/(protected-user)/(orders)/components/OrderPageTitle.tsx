@@ -58,7 +58,7 @@ export const OrderPageTitle: React.FC<OrderPageTitleProps> = ({ totalCount, curr
         }
         ).then((res) => {
             toast.success(res.data.message);
-            mutate(`/api/order/get-all-orders?limit=5&page=${currentPage}`);
+            mutate(`/api/order/get-all-orders?limit=4&page=${currentPage}`);
         })
             .catch((err) => {
                 toast.error(err.response.data.message);
@@ -70,7 +70,7 @@ export const OrderPageTitle: React.FC<OrderPageTitleProps> = ({ totalCount, curr
         <div className='flex items-center gap-4 font-medium text-3xl text-grey-800'>
             <button
                 onClick={() => setIsModalOpen(true)}
-                className='flex justify-center items-center text-white border-2 border-grey-200 rounded-full bg-green p-3 h-10 text-lg shadow-lg hover:bg-green/80'
+                className='flex justify-center items-center text-white border-2 border-grey-200 rounded-full bg-green p-3 h-10 text-lg shadow-lg hover:bg-green/80 transition duration-300 leading-snug'
             >
                 +
             </button>
