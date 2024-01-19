@@ -4,7 +4,7 @@ import { Control } from "react-hook-form";
 
 import { TextInput, AreaInput, DatePickerInput } from '@/components/inputs/_index';
 import { Button, Modal } from '@nextui-org/react';
-import { ModalWrapper } from '@/components/ModalWrapper';
+import { ModalWrapper } from '@/components/wrappers/ModalWrapper';
 
 interface AddOrderProps {
     cancelClick: () => void;

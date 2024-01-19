@@ -34,39 +34,42 @@ export const mainPageMetaData: Metadata = {
 };
 
 export const errorPageMetaData: Metadata = {
-    title: 'Error page',
+    title: 'Error',
 };
 
 // auth pages
 export const forgotPasswordPageMetaData: Metadata = {
-    title: 'Forgot password page',
+    title: 'Forgot password',
 };
 export const sendEmailMessagePageMetaData: Metadata = {
-    title: 'Send email page',
+    title: 'Send email',
 };
 export const setNewPasswordPageMetaData: Metadata = {
-    title: 'Set new password page',
+    title: 'Set new password',
 };
 export const signInPageMetaData: Metadata = {
-    title: 'Sign in page',
+    title: 'Sign in',
 };
 export const signUpPageMetaData: Metadata = {
-    title: 'Sign up page',
+    title: 'Sign up',
 };
 export const verifyEmailPageMetaData: Metadata = {
-    title: 'Verify email page',
+    title: 'Verify email',
 };
 
 // protected user pages
 export const groupsPageMetaData: Metadata = {
-    title: 'Groups page',
+    title: 'Groups',
 };
 export const productsPageMetaData: Metadata = {
-    title: 'Products page',
+    title: 'Products',
 };
 export const settingsPageMetaData: Metadata = {
-    title: 'Settings page',
+    title: 'Settings',
 };
 export const usersPageMetaData: Metadata = {
-    title: 'Users page',
+    title: 'Users',
+};
+export const createProductPageMetaData: Metadata = {
+    title: 'Create new product',
 };

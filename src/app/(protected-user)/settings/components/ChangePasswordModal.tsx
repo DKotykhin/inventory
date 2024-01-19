@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 
-import { ModalWrapper } from '@/components/ModalWrapper';
+import { ModalWrapper } from '@/components/wrappers/ModalWrapper';
 import { ConfirmPasswordForm } from './ConfirmPasswordForm';
 import { UpdatePasswordForm } from './UpdatePasswordForm';
 

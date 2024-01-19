@@ -6,7 +6,7 @@ import { generalMetaData } from '@/metadata/metadata';
 
 import { Header } from '@/components/Header';
 import { SideBar } from '@/components/SideBar';
-import { UIProvider } from '@/components/UIProvider';
+import { UIProvider } from '@/providers/UIProvider';
 
 import 'react-toastify/dist/ReactToastify.css';
 import "react-datepicker/dist/react-datepicker.css";

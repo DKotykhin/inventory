@@ -4,7 +4,7 @@ import React from 'react';
 
 import Image from "next/image";
 import { Button } from '@nextui-org/react';
-import { ModalWrapper } from './ModalWrapper';
+import { ModalWrapper } from './wrappers/ModalWrapper';
 
 interface WarningModalProps {
     title: string;

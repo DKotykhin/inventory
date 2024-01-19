@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 
 import { Spinner } from '@/components/Spinner';
-import { AuthWrapper } from '@/components/AuthWrapper';
+import { AuthWrapper } from '@/components/wrappers/AuthWrapper';
 
 export const VerifyEmail = ({ token }: { token?: string }) => {
 

@@ -3,7 +3,7 @@ import React from 'react';
 import { Metadata } from 'next';
 
 import { SetNewPasswordForm } from '../components/SetNewPasswordForm';
-import { AuthWrapper } from '@/components/AuthWrapper';
+import { AuthWrapper } from '@/components/wrappers/AuthWrapper';
 import { setNewPasswordPageMetaData } from '@/metadata/metadata';
 
 export const metadata: Metadata = setNewPasswordPageMetaData;

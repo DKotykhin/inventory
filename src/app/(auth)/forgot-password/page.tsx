@@ -1,7 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 
-import { AuthWrapper } from '@/components/AuthWrapper';
+import { AuthWrapper } from '@/components/wrappers/AuthWrapper';
 import { ForgotPasswordForm } from './components/ForgotPasswordForm';
 import { forgotPasswordPageMetaData } from '@/metadata/metadata';
 import { AuthFormHeader } from '@/components/AuthFormHeader';

@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { AuthProvider } from '@/components/AuthProvider';
+import { AuthProvider } from '@/providers/AuthProvider';
 
 export default function UserLayout({
     children,
