@@ -252,6 +252,48 @@ class UserService {
 
         return { status: true };
     }
+
+    async confirmPassword(password: string, token: string): Promise<{ status: Boolean }> {
+        if (!token || !password) {
+            throw ApiError.badRequest('Invalid data');
+        }
+        await passwordValidate({ password });
+        const { id } = checkAuth(token);
+        const user = await findUserById(id);
+
+        if (!user?.passwordHash) {
+            throw ApiError.badRequest('User password is empty');
+        }
+        try {
+            await PasswordHash.compare(password, user.passwordHash, 'Wrong password!');
+        } catch (error) {
+            throw ApiError.badRequest('Wrong password!');
+        }
+
+        return { status: true };
+    }
+
+    async updatePassword(password: string, token: string): Promise<{ status: Boolean }> {
+        if (!token || !password) {
+            throw ApiError.badRequest('Invalid data');
+        }
+        await passwordValidate({ password });
+        const { id } = checkAuth(token);
+        const passwordHash = await PasswordHash.create(password);
+
+        try {
+            await db.user.update({
+                where: { id },
+                data: {
+                    passwordHash,
+                },
+            });
+        } catch (error) {
+            throw ApiError.badRequest("Password can't be changed");
+        }
+
+        return { status: true };
+    }
 }
 
 const userService = new UserService();

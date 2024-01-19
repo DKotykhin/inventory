@@ -13,7 +13,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import './globals.css';
 
 const inter = Inter({
-    weight: ['300', '400', '500', '700', '900'],
+    weight: ['300', '400', '500', '600', '700', '900'],
     subsets: ['latin']
 });
 

@@ -38,7 +38,7 @@ export const AuthProvider = ({
             });
     }, [addUser, router]);
 
-    return userData.id ? (
+    return userData?.id ? (
         <div>
             {children}
         </div>

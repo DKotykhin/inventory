@@ -3,7 +3,8 @@ import React from 'react';
 import { Control } from "react-hook-form";
 
 import { TextInput, AreaInput, DatePickerInput } from '@/components/inputs/_index';
-import { Button } from '@nextui-org/react';
+import { Button, Modal } from '@nextui-org/react';
+import { ModalWrapper } from '@/components/ModalWrapper';
 
 interface AddOrderProps {
     cancelClick: () => void;
@@ -15,37 +16,29 @@ interface AddOrderProps {
 export const AddOrder: React.FC<AddOrderProps> = ({ cancelClick, control, errors, onSubmit }) => {
 
     return (
-        <div
-            className='fixed top-0 left-0 w-screen h-screen bg-grey-900/70 backdrop-blur flex justify-center items-center z-50'
-            onClick={cancelClick}
-        >
-            <div
-                className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white flex flex-col justify-center items-center gap-4 p-4 rounded-md'
-                onClick={(e) => e.stopPropagation()}
-            >
-                <p className='text-grey-800 text-2xl'>Добавить приход</p>
-                <form className='flex flex-col gap-1 min-w-[500px]' onSubmit={onSubmit}>
-                    <TextInput
-                        control={control}
-                        name='title'
-                        label='Название'
-                        placeholder='Введите название...'
-                        error={errors.title}
-                    />
-                    <AreaInput
-                        control={control}
-                        name='description'
-                        label='Описание'
-                        placeholder='Введите описание...'
-                        error={errors.description}
-                    />
-                    <DatePickerInput control={control} name='date' placeholder='Дата' />
-                    <div className='flex justify-end text-lg gap-6 mt-8'>
-                        <Button type='button' variant='bordered' onClick={cancelClick}>Отмена</Button>
-                        <Button type='submit' variant='shadow' color='primary'>Подтвердить</Button>
-                    </div>
-                </form>
-            </div>
-        </div>
+        <ModalWrapper cancelClick={cancelClick}>
+            <p className='text-grey-800 text-2xl'>Добавить приход</p>
+            <form className='flex flex-col gap-1 min-w-[500px]' onSubmit={onSubmit}>
+                <TextInput
+                    control={control}
+                    name='title'
+                    label='Название'
+                    placeholder='Введите название...'
+                    error={errors.title}
+                />
+                <AreaInput
+                    control={control}
+                    name='description'
+                    label='Описание'
+                    placeholder='Введите описание...'
+                    error={errors.description}
+                />
+                <DatePickerInput control={control} name='date' placeholder='Дата' />
+                <div className='flex justify-end text-lg gap-6 mt-8'>
+                    <Button type='button' variant='bordered' onClick={cancelClick}>Отмена</Button>
+                    <Button type='submit' variant='shadow' color='primary'>Подтвердить</Button>
+                </div>
+            </form>
+        </ModalWrapper>
     );
 };
