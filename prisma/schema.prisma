@@ -69,10 +69,10 @@ model Product {
   createdAt DateTime @default(now()) @map("created_at")
 
   title         String
-  serialNumber  String     @map("serial_number")
+  serialNumber  String?    @map("serial_number")
   isNew         Boolean    @default(value: true) @map("is_new")
   photo         String?
-  type          String?
+  type          String
   specification String?
   order         Int        @default(autoincrement())
   date          DateTime
@@ -86,8 +86,8 @@ model Product {
 model Guarantee {
   id Int @id @default(autoincrement())
 
-  start DateTime
-  end   DateTime
+  start DateTime?
+  end   DateTime?
 
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String  @unique @map("product_id")

@@ -9,7 +9,7 @@ export const createOrderValidationSchema = z.object({
     date: dateField,
 });
 export type CreateOrderTypes = z.infer<typeof createOrderValidationSchema>;
-export const signUpValidate = async (validateData: CreateOrderTypes) => {
+export const createOrderValidate = async (validateData: CreateOrderTypes) => {
     try {
         return await createOrderValidationSchema.parseAsync(validateData);
     } catch (err: any) {

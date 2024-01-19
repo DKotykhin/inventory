@@ -18,9 +18,10 @@ export const DatePickerInput: React.FC<DatePickerProps> = ({control, placeholder
                 render={({ field }) => (
                     <DatePicker
                         selected={field.value}
+                        dateFormat={'dd-MM-yyyy'}
                         placeholderText={placeholder}
                         onChange={(date) => field.onChange(date)}
-                        className='w-full h-10 text-[14px] text-black px-3 py-2 rounded-md border border-grey-100'
+                        className='w-full h-12 text-[14px] text-black px-3 py-2 rounded-md border border-grey-100'
                     />
                 )}
             />

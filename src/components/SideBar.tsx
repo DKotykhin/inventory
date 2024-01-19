@@ -45,7 +45,7 @@ export const SideBar = () => {
     };
 
     return (
-        <div className='w-[200px] bg-white flex flex-col justify-between items-center shadow-lg pt-32 pb-8'>
+        <div className='w-[200px] bg-white flex flex-col justify-between items-center shadow-lg pt-32 pb-8 min-h-screen'>
             <div className='flex flex-col items-center gap-16'>
                 <Avatar />
                 <nav>

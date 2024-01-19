@@ -19,9 +19,12 @@ export const userName = z
 export const textFieldRequired = z
     .string()
     .trim()
-    .min(2, { message: 'Minimum 2 characters to fill' })
-    .max(150, { message: 'Maximum 150 characters to fill' });
+    .min(2, { message: 'Min 2 characters to fill' })
+    .max(150, { message: 'Max 150 characters to fill' });
 
 export const textField = z.string().trim().max(250, { message: 'Maximum 250 characters to fill' });
 
-export const dateField = z.date();
+export const dateField = z.union([z.date(), z.null()]);
+
+export const booleanField = z.boolean();
+

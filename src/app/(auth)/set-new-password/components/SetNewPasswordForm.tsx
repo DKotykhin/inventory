@@ -43,7 +43,7 @@ export const SetNewPasswordForm = ({ token }: { token: string }) => {
     } = useForm<SetNewPasswordTypes>(SetNewPasswordFormValidation);
 
     const onSubmit = async (formData: SetNewPasswordTypes) => {
-        console.log('data: ', formData);
+        // console.log('data: ', formData);
         const { password } = formData;
         startTransition(async () => {
             startTransition(async () => {

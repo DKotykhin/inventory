@@ -29,7 +29,7 @@ export default function RootLayout({
             <body className={inter.className}>
                 <UIProvider>
                     <Header />
-                    <div className='flex h-screen'>
+                    <div className='flex'>
                         <SideBar />
                         {children}
                     </div>

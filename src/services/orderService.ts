@@ -72,7 +72,6 @@ class OrderService {
         try {
             return await db.order.delete({ where: { id } });
         } catch (error) {
-            console.log(error);
             throw ApiError.internalError("Can't delete order");
         }
     }

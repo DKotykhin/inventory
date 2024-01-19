@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from "next/image";
 
+import { toast } from 'react-toastify';
 import Cookies from "js-cookie";
 import axios from "axios";
 
@@ -33,7 +34,7 @@ export const Avatar = () => {
             changeUrl(user.data.avatar);
             setAvatarLoading(false);
         } catch (error: any) {
-            console.log(error.message);
+            toast.error(error.message);
         }
     };
 
