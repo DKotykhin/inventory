@@ -21,9 +21,8 @@ const UsersPage = () => {
         </div>
     ) : (
         <div className='text-center mt-8'>
-            <h1>Users Page</h1>
-            <p>User Access</p>
-            <p>Role: {role}</p>
+            <h1 className='text-xl text-grey-800 mb-4'>You need admin access for watching users profiles</h1>
+            <p className='text-grey'>You current role: {role}</p>          
         </div>
     );
 };

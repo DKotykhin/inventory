@@ -51,6 +51,7 @@ export const OrderList: React.FC<OrderListProps> = ({ orders, currentPage }) => 
                 <SideProductList
                     orderContent={orderContent}
                     productCloseClick={() => setIsOrderOpen(false)}
+                    currentPage={currentPage}
                 />
             }
         </div>

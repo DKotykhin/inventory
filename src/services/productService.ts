@@ -50,6 +50,7 @@ class ProductService {
                     type: true,
                 },
                 distinct: ['type'],
+                orderBy: {  type: 'asc' },
             });
 
             return { products, totalCount, totalPages, productTypeList };
@@ -101,7 +102,6 @@ class ProductService {
 
             return newProduct;
         } catch (error) {
-            console.log('error: ', error);
             throw ApiError.internalError("Can't create full product");
         }
     }
