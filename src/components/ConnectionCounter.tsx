@@ -21,7 +21,9 @@ export const ConnectionCounter = () => {
         // newWs.onclose = () => console.log('WebSocket disconnected');
         newWs.onerror = (error: any) => console.log('WebSocket error:', error);
 
-        return () => newWs.close();
+        return () => {
+            if (newWs.readyState === newWs.OPEN) newWs.close();
+        };
     }, []);
 
     return (
