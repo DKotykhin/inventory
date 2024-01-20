@@ -23,7 +23,7 @@ export const Header = () => {
                 </div>
                 <div className='flex items-end gap-4'>
                     <RealTimeIndicator />
-                    {/* <ConnectionCounter /> */}
+                    <ConnectionCounter />
                 </div>
             </div>
         </header>
