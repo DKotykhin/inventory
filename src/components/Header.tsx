@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { RealTimeIndicator } from './RealTimeIndicator';
+import { ConnectionCounter } from './ConnectionCounter';
 
 export const Header = () => {
     return (
@@ -20,7 +21,10 @@ export const Header = () => {
                         Inventory
                     </Link>
                 </div>
-                <RealTimeIndicator />
+                <div className='flex items-end gap-4'>
+                    <RealTimeIndicator />
+                    <ConnectionCounter />
+                </div>
             </div>
         </header>
     );
