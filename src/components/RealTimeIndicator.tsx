@@ -14,7 +14,7 @@ export const RealTimeIndicator = () => {
         setCurrentTime(new Date());
         const intervalId = setInterval(() => {
             setCurrentTime(new Date());
-        }, 1000);
+        }, 1000 * 10);
 
         return () => clearInterval(intervalId);
     }, []);
@@ -34,7 +34,6 @@ export const RealTimeIndicator = () => {
                     />
                     {format(currentTime, 'H:mm')}
                 </div>
-
             </div>
         </div>
     ) : null;

@@ -7,7 +7,7 @@ export const ConnectionCounter = () => {
     const [connectionCount, setConnectionCount] = useState(0);
 
     useEffect(() => {
-        const newWs = new WebSocket('wss://inventory-backend-1-7f739e60a909.herokuapp.com');
+        const newWs = new WebSocket(process.env.NEXT_PUBLIC_WS_SERVER as string);
 
         // newWs.onopen = () => console.log('WebSocket connected');
 
@@ -19,7 +19,7 @@ export const ConnectionCounter = () => {
         };
 
         // newWs.onclose = () => console.log('WebSocket disconnected');
-        // newWs.onerror = (error: any) => console.log('WebSocket error:', error);
+        newWs.onerror = (error: any) => console.log('WebSocket error:', error);
 
         return () => {
             if (newWs.readyState === newWs.OPEN) newWs.close();

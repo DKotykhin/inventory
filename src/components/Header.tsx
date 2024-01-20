@@ -21,10 +21,10 @@ export const Header = () => {
                         Inventory
                     </Link>
                 </div>
-                <div className='flex items-end gap-4'>
+                {/* <div className='flex items-end gap-4'>
                     <RealTimeIndicator />
                     <ConnectionCounter />
-                </div>
+                </div> */}
             </div>
         </header>
     );
