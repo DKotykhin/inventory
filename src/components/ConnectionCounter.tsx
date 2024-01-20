@@ -9,7 +9,7 @@ export const ConnectionCounter = () => {
     useEffect(() => {
         const newWs = new WebSocket(process.env.NEXT_PUBLIC_WS_SERVER as string);
 
-        newWs.onopen = () => console.log('WebSocket connected');
+        // newWs.onopen = () => console.log('WebSocket connected');
 
         newWs.onmessage = (event: any) => {
             const data = JSON.parse(event.data);
@@ -18,7 +18,7 @@ export const ConnectionCounter = () => {
             }
         };
 
-        // newWs.onclose = () => console.log('WebSocket disconnected');
+        newWs.onclose = () => setConnectionCount(0);
         newWs.onerror = (error: any) => console.log('WebSocket error:', error);
 
         return () => newWs.close();
