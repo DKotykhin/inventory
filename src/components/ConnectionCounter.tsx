@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from '@/utils/cn';
 import React, { useState, useEffect } from 'react';
 
 export const ConnectionCounter = () => {
@@ -26,7 +27,10 @@ export const ConnectionCounter = () => {
 
     return (
         <div className='flex items-center gap-1 text-sm text-grey'>
-            <p className='w-2 h-2 bg-green rounded-full'></p>
+            <div className={cn(
+                'w-2 h-2 rounded-full',
+                connectionCount > 0 ? 'bg-green' : 'bg-grey',
+            )} />
             <p>{connectionCount}</p>
         </div>
     );

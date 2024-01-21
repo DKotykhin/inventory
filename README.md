@@ -15,7 +15,7 @@
 
 ## Environment Variables
 
-To run this project, you will need to add the following environment variables to your .env file. See also in .env.example in root directory
+To run this project locally, you will need to add the following environment variables to your .env file. See also in .env.example in root directory
 
 ##### DB
 DATABASE_URL=
