@@ -1,4 +1,4 @@
-import { genSalt, hashSync, compare } from 'bcrypt';
+import { genSalt, hashSync, compare } from 'bcryptjs';
 
 import { ApiError } from '@/handlers/apiError';
 
