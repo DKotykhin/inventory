@@ -63,7 +63,7 @@ export const VerifyEmail = ({ token }: { token?: string }) => {
     }
 
     return isPending ?
-        <div className='w-full h-full flex justify-center items-center my-12'>
+        <div className='w-full h-full flex justify-center my-12'>
             <Spinner />
         </div>
         :

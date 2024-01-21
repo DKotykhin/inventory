@@ -15,9 +15,10 @@ export default async function AuthLayout({
         user = await userService.getUserByToken(`Bearer ${token}`);
     } catch (error) { }
 
-    return (
+    return user?.id ?
+        redirect('/')
+        :
         <div className='w-full mt-16'>
             {children}
-        </div>
-    );
+        </div>;
 }

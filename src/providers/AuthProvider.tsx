@@ -16,9 +16,9 @@ export const AuthProvider = ({
 }) => {
     const { addUser, userData } = useUserStore();
     const router = useRouter();
-    const token = Cookies.get('token');
-
+    
     useEffect(() => {
+        const token = Cookies.get('token');
         if (!token) {
             router.push('/sign-in');
         }
@@ -36,7 +36,7 @@ export const AuthProvider = ({
             .catch((error) => {
                 router.push('/sign-in');
             });
-    }, [addUser, router, token]);
+    }, [addUser, router]);
 
     return userData?.id ? (
         <div>
