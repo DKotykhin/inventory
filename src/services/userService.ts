@@ -102,8 +102,10 @@ class UserService {
 
     async signIn(data: SignInTypes): Promise<{ user: User; token: string }> {
         const { email, password } = await signInValidate(data);
-
         const user = await findUserByEmail(email);
+        if (!user?.id) {
+            throw ApiError.badRequest('Incorrect login or password');
+        }
 
         if (!user?.emailConfirm?.verified) {
             const token = cryptoToken();

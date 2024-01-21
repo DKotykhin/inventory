@@ -35,7 +35,7 @@ const navLinks = [
 export const SideBar = () => {
 
     const pathname = usePathname();
-    const { removeUser } = useUserStore();
+    const { userData, removeUser } = useUserStore();
     const router = useRouter();
 
     const logoutClick = () => {
@@ -62,15 +62,17 @@ export const SideBar = () => {
                     </ul>
                 </nav>
             </div>
-            <button className='flex items-center gap-2 p-1 mt-4' onClick={logoutClick}>
-                <Image
-                    src={'/icons/logout.svg'}
-                    alt={'logout'}
-                    width={20}
-                    height={20}                    
-                />
-                <span className='text-red'>Выйти</span>                
-            </button>
+            {userData.id &&
+                <button className='flex items-center gap-2 p-1 mt-4' onClick={logoutClick}>
+                    <Image
+                        src={'/icons/logout.svg'}
+                        alt={'logout'}
+                        width={20}
+                        height={20}
+                    />
+                    <span className='text-red'>Выйти</span>
+                </button>
+            }
         </div>
     );
 };

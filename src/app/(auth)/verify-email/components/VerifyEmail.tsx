@@ -29,7 +29,7 @@ export const VerifyEmail = ({ token }: { token?: string }) => {
                     data: { token },
                 })
                     .then((res) => {
-                        // console.log(res.data);
+                        toast.success(res.data.message);
                         router.push('/');
                     })
                     .catch((error) => {

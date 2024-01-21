@@ -7,7 +7,7 @@ export async function POST(req: Request) {
         const { status } = await userService.verifyEmail(data);
 
         return Response.json({
-            message: `User successfully verified.`,
+            message: `Email successfully verified.`,
             status,
         });
     } catch (error) {
